@@ -45,7 +45,7 @@ char **div_arg(char *line)
 * _execute - execute a command in a new process
 * @command: an array of strings representing the command and its arguments
 * @av: an array of strings
-* Return: 0 on success, 1 on error
+* Return: status
 */
 int _execute(char **command, char **av)
 {
@@ -63,17 +63,18 @@ int _execute(char **command, char **av)
 
 	if (child_pid == 0)
 	{
-		if (execve(command[0], command, NULL) == -1)
+		if (execve(command[0], command, environ) == -1)
 		{
 			perror(av[0]);
-			return (1);
+			free(command);
+			exit(126);
 		}
 	}
 	else
 	{
-		wait(&status);
+		waitpid(child_pid, &status, 0);
 	}
-	return (0);
+	return (WEXITSTATUS(status));
 
 }
 
@@ -87,6 +88,7 @@ char *read_line(int status)
 	char *line = NULL;
 	size_t len = 0;
 	ssize_t nread;
+
 	if (isatty(STDIN_FILENO))
 		write(STDOUT_FILENO, "#cisfun$ ", 9);
 	nread = getline(&line, &len, stdin);
@@ -106,7 +108,8 @@ char *read_line(int status)
 void free_arg(char **command)
 {
 	int i = 0;
-	if (command != NULL)	
+
+	if (command != NULL)
 	{
 		while (command[i])
 		{
