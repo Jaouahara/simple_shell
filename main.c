@@ -15,9 +15,13 @@ int main(int ac, char **av)
 
 	while (1)
 	{
-		if (isatty(STDIN_FILENO))
-			write(STDOUT_FILENO, "#cisfun$ ", 9);
 		line = read_line(status);
+		if (line == NULL)
+		{
+			if(isatty(STDIN_FILENO))
+				write(STDOUT_FILENO, "\n", 1);
+			return (status);
+		}
 
 		command = div_arg(line);
 		i = 0;

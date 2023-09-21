@@ -87,7 +87,8 @@ char *read_line(int status)
 	char *line = NULL;
 	size_t len = 0;
 	ssize_t nread;
-
+	if (isatty(STDIN_FILENO))
+		write(STDOUT_FILENO, "#cisfun$ ", 9);
 	nread = getline(&line, &len, stdin);
 	if (nread == -1)
 	{
@@ -105,7 +106,7 @@ char *read_line(int status)
 void free_arg(char **command)
 {
 	int i = 0;
-	if (command != NULL)
+	if (command != NULL)	
 	{
 		while (command[i])
 		{
