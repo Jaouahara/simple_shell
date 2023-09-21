@@ -10,7 +10,7 @@ int main(int ac, char **av)
 {
 	char *line = NULL;
 	char **command = NULL;
-	int status = 0, i = 0;
+	int status = 0; 
 	(void)ac;
 
 	while (1)
@@ -24,16 +24,18 @@ int main(int ac, char **av)
 		}
 
 		command = div_arg(line);
-		i = 0;
+		if (!command)
+			continue;
+		/*i = 0;
 		while (command[i] != NULL)
 		{
 			printf("%s\n", command[i]);
 			i++;
 		}
 		free_arg(command);
-		free(line);
+		free(line);*/
 
 		status = _execute(command, av);
 	}
-	return (status);
+	/*return (status);*/
 }
