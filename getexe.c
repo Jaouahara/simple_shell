@@ -52,22 +52,20 @@ int _execute(char **command, char **av)
 	pid_t child_pid;
 	int status;
 	
-	if (!command)
-		return (1);
 	child_pid = fork();
 	if (child_pid == 0)
 	{
 		if (execve(command[0], command, environ) == -1)
 		{
 			perror(av[0]);
-			free(command);
-			exit(0);
+			freeing(command);
+			exit(100);
 		}
 	}
 	else
 	{
 		waitpid(child_pid, &status, 0);
-		free(command);
+		freeing(command);
 	}
 	return (WEXITSTATUS(status));
 
