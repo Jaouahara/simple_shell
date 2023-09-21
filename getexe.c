@@ -58,14 +58,13 @@ int _execute(char **command, char **av)
 		if (execve(command[0], command, environ) == -1)
 		{
 			perror(av[0]);
-			freeing(command);
-			exit(100);
+			free_arg(command);
 		}
 	}
 	else
 	{
 		waitpid(child_pid, &status, 0);
-		freeing(command);
+		free_arg(command);
 	}
 	return (WEXITSTATUS(status));
 

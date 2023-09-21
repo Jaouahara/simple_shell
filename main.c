@@ -26,16 +26,10 @@ int main(int ac, char **av)
 		command = div_arg(line);
 		if (!command)
 			continue;
-		/*i = 0;
-		while (command[i] != NULL)
-		{
-			printf("%s\n", command[i]);
-			i++;
-		}
-		free_arg(command);
-		free(line);*/
 
 		status = _execute(command, av);
+		free_arg(command);
+		free(line);
 	}
-	/*return (status);*/
+	return (status);
 }
