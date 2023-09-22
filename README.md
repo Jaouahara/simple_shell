@@ -1,1 +1,2 @@
-0x16. C - Simple Shell
+## Shell_project
+./hsh to execute file.

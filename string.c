@@ -1,111 +1,98 @@
 #include "shell.h"
-
 /**
- * _strdup - duplicate a string
- * @str: the inpute string
- * Return: pointer to a new alloc null-termi str or NULL on failure
+ * _strdup - a function
+ * @str: a double pointer
+ * Return: a pointer
  */
 char *_strdup(const char *str)
 {
-	char *dup;
-	int i;
-	int len = 0;
+	char *ptr;
+	int i, len = 0;
 
 	if (str == NULL)
 		return (NULL);
-	while (*str != '\0')
-	{
+
+	while (str[len])
 		len++;
-		str++;
-	}
-	str = str - len;
-	dup = malloc(sizeof(char) * (len + 1));
-	if (dup == NULL)
+
+	ptr = malloc(sizeof(char) * (len + 1));
+	if (ptr == NULL)
+		return (NULL);
 	for (i = 0; i <= len; i++)
-		dup[i] = str[i];
-	return (dup);
+		ptr[i] = str[i];
+	return (ptr);
 }
-
 /**
- * _strlen - calculate the length of a null-terminated string
- * @s: the string hwo length to calcul
- * Return: length of string
- */
-int _strlen(char *s)
-{
-	int length = 0;
-
-	while (*s != '\0')
-	{
-		length++;
-		s++;
-	}
-
-	return (length);
-}
-
-/**
- * _strcat - concatenate 2 null-terminated string
- * @dest: pointer to the destination string
- * @src: pointer to the source string
- * Return: pointer to the destination string
- */
-char *_strcat(char *dest, char *src)
-{
-	char *temp = dest;
-
-	while (*temp != '\0')
-	{
-		temp++;
-	}
-	while (*src != '\0')
-	{
-		*temp = *src;
-		temp++;
-		src++;
-	}
-	*temp = *src;
-	return (dest);
-}
-
-/**
- * _strcpy - copy a null-terminated string to another null-terminated string
- * @dest: the destination null-terminated string
- * @src: the source null-terminated string
- * Return: pointer to the destinatoin string dest
- */
-char *_strcpy(char *dest, char *src)
-{
-	char *temp = dest;
-
-	while (*src != '\0')
-	{
-		*dest = *src;
-		dest++;
-		src++;
-	}
-
-	*dest = '\0';
-
-	return (temp);
-}
-
-/**
- * _strcmp - compare two null-terminated strings
- * @s1: pointer to the first null-terminated
- * @s2: pointer to the second null-terminated
- * Return: a pointer to an array of strings, or NULL on failure
+ * _strcmp - a function
+ * @s1: a  pointer
+ * @s2: a pointer
+ * Return: a pointer
  */
 int _strcmp(char *s1, char *s2)
 {
-	int result = (int)*s1 - (int)*s2;
+	int cmp;
 
+	cmp = (int)*s1 - (int)*s2;
 	while (*s1)
 	{
 		if (*s1 != *s2)
 			break;
-		s1++, s2++;
-		result = (int)*s1 - (int)*s2;
+		s1++;
+		s2++;
+		cmp = (int)*s1 - (int)*s2;
 	}
-	return (result);
+	return (cmp);
+}
+/**
+ * _strlen - a function
+ * @s: a  pointer
+ * Return: integer
+ */
+int _strlen(char *s)
+{
+	int len = 0;
+
+	while (s[len])
+		len++;
+	return (len);
+}
+/**
+ * _strcat - a function
+ * @dest: a  pointer
+ * @src: a pointer
+ * Return: a pointer
+ */
+char *_strcat(char *dest, char *src)
+{
+	char *p = dest;
+
+	while (*p)
+		p++;
+
+	while (*src)
+	{
+		*p = *src;
+		p++;
+		src++;
+	}
+	*p = '\0';
+	return (dest);
+}
+/**
+ * _strcpy - a function
+ * @dest: a  pointer
+ * @src: a pointer
+ * Return: a pointer
+ */
+char *_strcpy(char *dest, char *src)
+{
+	int i = 0;
+
+	while (src[i])
+	{
+		dest[i] = src[i];
+		i++;
+	}
+	dest[i] = '\0';
+	return (dest);
 }
